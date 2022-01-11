@@ -18,6 +18,6 @@ public class TestForClassVirtualItem {
     @DisplayName("checking correct data entry")
     void equalsData(){
         virtualItem.setSizeOnDisk(121212.987655544);
-        Assertions.assertEquals(virtualItem.getSizeOnDisk(), 121212.987655544);
+        Assertions.assertEquals(121212.987655544, virtualItem.getSizeOnDisk());
     }
 }

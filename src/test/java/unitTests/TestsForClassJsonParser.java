@@ -43,15 +43,16 @@ public class TestsForClassJsonParser {
 
     @Test
     @DisplayName("checking if a file is written to a null value")
-    void writeToFileNullPointerException() {
+    void writeToFileNull() {
         Assertions.assertThrows(NullPointerException.class, () -> {
             parser.writeToFile(null);
         });
     }
 
     @Test
+    @Disabled
     @DisplayName("checking data read from null")
-    void readFromFileNullPointerException() {
+    void readFromFileNull() {
         Assertions.assertThrows(NullPointerException.class, () -> {
             Cart testCart = parser.readFromFile(null);
         });
@@ -60,7 +61,7 @@ public class TestsForClassJsonParser {
     @ParameterizedTest
     @ValueSource(strings = {" ", "src/main/resources/test", "src/main/resources/test-cart", "src/main/resources/andrew-cart", "src/main/resources/eugen-cart"})
     @DisplayName("checking reading from non-existent files")
-    void readFromNoSuchFileExceptions(String pathName) {
+    void readFromFile(String pathName) {
         Assertions.assertThrows(NoSuchFileException.class, () -> {
             parser.readFromFile(new File(pathName));
         });

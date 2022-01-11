@@ -21,9 +21,9 @@ public class TestForClassRealItem {
         animal.setPrice(100.5454);
         animal.setWeight(3.5);
         Assertions.assertAll("compare all data to realItem",
-                () -> Assertions.assertEquals( animal.getName(), "Cat"),
-                () -> Assertions.assertEquals(animal.getPrice(), 100.5454),
-                () -> Assertions.assertEquals(animal.getWeight(), 3.5 )
+                () -> Assertions.assertEquals("Cat", animal.getName()),
+                () -> Assertions.assertEquals(100.5454, animal.getPrice()),
+                () -> Assertions.assertEquals(3.5, animal.getWeight())
         );
     }
 }

@@ -22,7 +22,7 @@ public class TestForClassCart {
     void equalsTotalPrise() {
         realItem.setPrice(10);
         testCart.addRealItem(realItem);
-        Assertions.assertEquals(testCart.getTotalPrice(), 12);
+        Assertions.assertEquals(12, testCart.getTotalPrice());
     }
 
     @Test
@@ -30,7 +30,6 @@ public class TestForClassCart {
     void addItem() {
         realItem.setName("BASIA");
         testCart.addRealItem(realItem);
-        testCart.showItems();
-
+        testCart.equals(realItem.toString());
     }
 }
