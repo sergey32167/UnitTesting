@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Unit Test TestNg">
+    <parameter name="sizeData" value="3333.44444"/>
+    <test name="Param Test">
+<classes>
+    <class name="unitTests.TestForClassVirtualItem"/>
+</classes>
+    </test>
+</suite>
