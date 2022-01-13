@@ -27,9 +27,7 @@ public class CartTest {
 
     @Test
     @DisplayName("checking if an item has been added to the cart")
-    void addItem() {
-        realItem.setName("BASIA");
-        testCart.addRealItem(realItem);
-        testCart.equals(realItem.toString());
+    void equalsCartName() {
+        Assertions.assertEquals("test-cart" ,testCart.getCartName());
     }
 }
