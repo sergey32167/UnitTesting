@@ -4,7 +4,7 @@
     <parameter name="sizeData" value="3333.44444"/>
     <test name="Param Test">
 <classes>
-    <class name="unitTests.TestForClassVirtualItem"/>
+    <class name="unitTests.testNg.VirtualItemTest"/>
 </classes>
     </test>
 </suite>

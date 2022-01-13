@@ -1,5 +1,6 @@
-package unitTests;
+package unitTests.testNg;
 
+import org.junit.jupiter.api.Assertions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
@@ -8,20 +9,18 @@ import org.testng.annotations.Test;
 import shop.Cart;
 import shop.RealItem;
 
-public class TestForClassCart {
+public class CartTest {
     private Cart testCart;
     private RealItem realItem;
 
-    @BeforeGroups("Cart")
-    void variableInitializationCart() {
-        realItem = new RealItem();
-        testCart = new Cart("test-cart");
+    @BeforeGroups
+    void startGroups(){
+        variableInitialization();
     }
 
     @BeforeClass
-    void variableInitialization() {
-        testCart = new Cart("test-cart");
-        realItem = new RealItem();
+    void startClass(){
+        variableInitialization();
     }
 
     @Test(groups = {"Cart"})
@@ -32,9 +31,13 @@ public class TestForClassCart {
     }
 
     @Test(groups = {"Cart"})
-    void addItem() {
-        realItem.setName("BASIA");
-        testCart.addRealItem(realItem);
-        testCart.equals(realItem.toString());
+    void equalsCartName() {
+        Assertions.assertEquals("test-cart" ,testCart.getCartName());
+
+    }
+
+    private void variableInitialization(){
+        testCart = new Cart("test-cart");
+        realItem = new RealItem();
     }
 }

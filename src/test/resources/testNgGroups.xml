@@ -15,10 +15,10 @@
         </groups>
 
         <classes>
-            <class name="unitTests.TestForClassCart"/>
-            <class name="unitTests.TestForClassRealItem"/>
-            <class name="unitTests.TestForClassVirtualItem"/>
-            <class name="unitTests.TestsForClassJsonParser"/>
+            <class name="unitTests.testNg.CartTest"/>
+            <class name="unitTests.testNg.RealItemTest"/>
+            <class name="unitTests.testNg.VirtualItemTest"/>
+            <class name="unitTests.testNg.JsonParserTest"/>
         </classes>
     </test>
 </suite>

@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.testNg;
 
 import data.DataPath;
 import org.testng.Assert;
@@ -9,20 +9,18 @@ import shop.Cart;
 
 import java.io.File;
 
-public class TestsForClassJsonParser {
+public class JsonParserTest {
     private JsonParser parser;
     private File file;
 
-    @BeforeGroups("Parser")
-    public void variableInitializationParser() {
-        parser = new JsonParser();
-        file = new File("src/main/resources/test-cart.json");
+    @BeforeGroups
+    void startGroups(){
+        variableInitialization();
     }
 
     @BeforeClass
-    public void variableInitialization() {
-        parser = new JsonParser();
-        file = new File("src/main/resources/test-cart.json");
+    void startClass(){
+        variableInitialization();
     }
 
     @AfterClass
@@ -60,5 +58,10 @@ public class TestsForClassJsonParser {
         Assert.assertThrows(NoSuchFileException.class, () -> {
             parser.readFromFile(new File(pathName));
         });
+    }
+
+    private void variableInitialization() {
+        parser = new JsonParser();
+        file = new File("src/main/resources/test-cart.json");
     }
 }

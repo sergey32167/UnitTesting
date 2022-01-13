@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.testNg;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
@@ -6,17 +6,17 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import shop.RealItem;
 
-public class TestForClassRealItem {
+public class RealItemTest {
     private RealItem animal;
 
-    @BeforeGroups("Item")
-    void variableInitializationItem() {
-        animal = new RealItem();
+    @BeforeGroups
+    void startGroups(){
+        variableInitialization();
     }
 
     @BeforeClass
-    void variableInitialization() {
-        animal = new RealItem();
+    void startClass(){
+        variableInitialization();
     }
 
     @Test(groups = "Item")
@@ -29,5 +29,9 @@ public class TestForClassRealItem {
         softassert.assertEquals(100.5454, animal.getPrice());
         softassert.assertEquals(3.5, animal.getWeight());
         softassert.assertAll( );
+    }
+
+    private void variableInitialization() {
+        animal = new RealItem();
     }
 }

@@ -3,18 +3,18 @@
 <suite name="Unit Test TestNg">
     <test name="Cart">
         <classes>
-            <class name="unitTests.TestForClassCart"/>
+            <class name="unitTests.testNg.CartTest"/>
         </classes>
     </test>
     <test name="Item">
         <classes>
-            <class name="unitTests.TestForClassRealItem"/>
-            <class name="unitTests.TestForClassVirtualItem"/>
+            <class name="unitTests.testNg.RealItemTest"/>
+            <class name="unitTests.testNg.VirtualItemTest"/>
         </classes>
     </test>
     <test name="Parser">
         <classes>
-            <class name="unitTests.TestsForClassJsonParser"/>
+            <class name="unitTests.testNg.JsonParserTest"/>
         </classes>
     </test>
 </suite>
