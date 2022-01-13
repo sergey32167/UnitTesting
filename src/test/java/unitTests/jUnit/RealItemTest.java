@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.jUnit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.RealItem;
 
-public class TestForClassRealItem {
+public class RealItemTest {
     private RealItem animal;
 
     @BeforeEach

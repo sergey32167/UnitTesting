@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.jUnit;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,7 +9,7 @@ import shop.Cart;
 
 import java.io.File;
 
-public class TestsForClassJsonParser {
+public class JsonParserTest {
     private JsonParser parser;
     private File file;
 
@@ -36,9 +36,10 @@ public class TestsForClassJsonParser {
     @Test
     @DisplayName("checking writing and reading from a file")
     void writeAndReadFromFile() {
-        parser.writeToFile(new Cart("test-cart"));
+        Cart cart = new Cart("test-cart");
+        parser.writeToFile(cart);
         Cart testCart = parser.readFromFile(file);
-        Assertions.assertNotNull(testCart);
+        testCart.equals(cart);
     }
 
     @Test

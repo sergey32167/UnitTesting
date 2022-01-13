@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.jUnit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.VirtualItem;
 
-public class TestForClassVirtualItem {
+public class VirtualItemTest {
     private VirtualItem virtualItem;
 
     @BeforeEach
