@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Unit Test TestNg ">
+    <test name="Groups Tests">
+        <groups>
+            <define name="All">
+                <include name="Cart"/>
+                <include name="Item"/>
+                <include name="Parser"/>
+            </define>
+            <run>
+                <include name="All"/>
+                <exclude name="Cart"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="unitTests.testNg.CartTest"/>
+            <class name="unitTests.testNg.RealItemTest"/>
+            <class name="unitTests.testNg.VirtualItemTest"/>
+            <class name="unitTests.testNg.JsonParserTest"/>
+        </classes>
+    </test>
+</suite>
