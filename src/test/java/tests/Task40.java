@@ -8,14 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -26,39 +21,30 @@ import java.util.Map;
 public class Task40 {
     private WebDriver driver;
     private WebDriverWait wait;
+    private Alert alert;
 
     @BeforeEach
     void start() {
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     @ParameterizedTest
     @CsvSource({"siarheikost , 1qaz2wsx!QAZ@WSX", "seregeikss, zaq1xsw2ZAQ!XSW@"})
-    void login(String name, String psw) throws InterruptedException {
-        driver.get("https://passport.yandex.com/auth/add?retpath=https%3A%2F%2Fpassport.yandex.com%2Fprofile&noreturn=1");
+    void login(String name, String psw) {
+        driver.get("https://passport.yandex.com/auth/");
 
         driver.findElement(By.id("passp-field-login")).sendKeys(name);
         driver.findElement(By.cssSelector(".Button2.Button2_size_l.Button2_view_action")).click();
-        Thread.sleep(1500);//(ExplicitlyWait)
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@dir = 'ltr']")));
         driver.findElement(By.xpath("//input[@dir = 'ltr']")).sendKeys(psw);
         driver.findElement(By.cssSelector(".Button2.Button2_size_l.Button2_view_action")).click();
-        Thread.sleep(2500);//(ExplicitlyWait)
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".personal-info-login__text")));
-    }
 
-    @Test
-    void alertBoxTest() {
-        driver.get("https://demo.seleniumeasy.com/javascript-alert-box-demo.html");
-
-        driver.findElement(By.xpath("//button[@onclick  ='myAlertFunction()']")).click();
-        Alert alert = driver.switchTo().alert();
-        System.out.println(alert.getText());
-        alert.accept();
+        Assertions.assertTrue(driver.findElement(By.cssSelector(".personal-info-login__text")).isDisplayed());
     }
 
     @Test
@@ -66,8 +52,7 @@ public class Task40 {
         driver.get("https://demo.seleniumeasy.com/javascript-alert-box-demo.html");
 
         driver.findElement(By.xpath("//button[@onclick  ='myConfirmFunction()']")).click();
-        Alert alert = driver.switchTo().alert();
-        System.out.println(alert.getText());
+        switchToAlert();
         alert.accept();
 
         WebElement result = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirm-demo")));
@@ -79,8 +64,7 @@ public class Task40 {
         driver.get("https://demo.seleniumeasy.com/javascript-alert-box-demo.html");
 
         driver.findElement(By.xpath("//button[@onclick  ='myConfirmFunction()']")).click();
-        Alert alert = driver.switchTo().alert();
-        System.out.println(alert.getText());
+        switchToAlert();
         alert.dismiss();
 
         WebElement result = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirm-demo")));
@@ -92,8 +76,7 @@ public class Task40 {
         driver.get("https://demo.seleniumeasy.com/javascript-alert-box-demo.html");
 
         driver.findElement(By.xpath("//button[@onclick  ='myPromptFunction()']")).click();
-        Alert alert = driver.switchTo().alert();
-        System.out.println(alert.getText());
+        switchToAlert();
         alert.sendKeys("HELLO");
         alert.accept();
 
@@ -106,6 +89,8 @@ public class Task40 {
         driver.get("https://demo.seleniumeasy.com/dynamic-data-loading-demo.html");
         driver.findElement(By.id("save")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'loading']/img")));
+
+        Assertions.assertTrue(driver.findElement(By.xpath("//div[@id = 'loading']/img")).isDisplayed());
     }
 
     @Test
@@ -118,6 +103,9 @@ public class Task40 {
         driver.findElement(By.xpath("//button[@value = 'Print All']")).click();
         select.selectByValue("New York");
         driver.findElement(By.xpath("//button[@value = 'Print First']")).click();
+
+        WebElement result = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p.getall-selected")));
+        Assertions.assertEquals(result.getText(), "First selected option is : New York");
     }
 
     @Test
@@ -125,13 +113,8 @@ public class Task40 {
         driver.get("https://demo.seleniumeasy.com/bootstrap-download-progress-demo.html");
 
         driver.findElement(By.id("cricle-btn")).click();
-        while (true) {
-            String percent = driver.findElement(By.xpath("//div[@class = 'percenttext']")).getText();
-            if (Integer.parseInt(percent.substring(0, percent.length() - 1)) > 50) {
-                driver.navigate().refresh();
-                break;
-            }
-        }
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'percenttext'][text() = '50%']")));
+        driver.navigate().refresh();
     }
 
     @Test
@@ -140,6 +123,7 @@ public class Task40 {
 
         Select select = new Select(driver.findElement(By.tagName("select")));
         select.selectByIndex(0);
+        Assertions.assertEquals(10, driver.findElements(By.xpath("//tbody//tr")).size());
 
         listOfSortedObjects();
     }
@@ -176,6 +160,10 @@ public class Task40 {
             }
         }
         System.out.println(finalList);
+    }
+
+    private void switchToAlert() {
+        alert = driver.switchTo().alert();
     }
 
     @AfterEach
