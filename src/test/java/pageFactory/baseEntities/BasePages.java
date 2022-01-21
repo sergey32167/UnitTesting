@@ -1,5 +1,6 @@
 package pageFactory.baseEntities;
 
+import core.ReadProperties;
 import core.WebDriverSingleton;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -17,7 +18,7 @@ public abstract class BasePages {
 
     public BasePages( boolean openPageByURL) {
         this.driver = WebDriverSingleton.getDriverInstance();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(ReadProperties.getInstance().getTimeOut()));
 
         PageFactory.initElements(this.driver, this);
 
@@ -30,7 +31,7 @@ public abstract class BasePages {
         int count = 0;
         boolean isPageOpenedIndicator = isPageOpened();
 
-        while (!isPageOpenedIndicator && count < 10) {
+        while (!isPageOpenedIndicator && count < ReadProperties.getInstance().getTimeOut()) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

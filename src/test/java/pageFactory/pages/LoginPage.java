@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageFactory.baseEntities.BasePages;
 
-public class LoginPageFactory extends BasePages {
+public class LoginPage extends BasePages {
 
     @FindBy(id = "passp-field-login")
     private WebElement loginInput;
@@ -16,8 +16,10 @@ public class LoginPageFactory extends BasePages {
     private WebElement loginButton;
     @FindBy(xpath = "//div[@class = 'Header-yaLogoBlock']")
     private WebElement yandexLogo;
+    @FindBy(tagName = "label")
+    private WebElement labelText;
 
-    public LoginPageFactory( boolean openPageByURL) {
+    public LoginPage(boolean openPageByURL) {
         super(openPageByURL);
     }
 
@@ -35,20 +37,28 @@ public class LoginPageFactory extends BasePages {
         }
     }
 
-    public LoginPageFactory setEmail(String text) {
+    public InMailPage singIn(String name, String psw){
+        setEmail(name);
+        loginButton();
+        setPassword(psw);
+        loginButton();
+        return new InMailPage(false);
+    }
+
+    public void setEmail(String text) {
         loginInput.sendKeys(text);
-        return this;
     }
 
-    public LoginPageFactory setPassword(String text) {
+    public void setPassword(String text) {
         wait.until(ExpectedConditions.elementToBeClickable(passwordInput)).sendKeys(text);
-        return this;
     }
 
-    public LoginPageFactory loginButton() {
+    public void loginButton() {
         loginButton.click();
-        return this;
     }
 
+    public String getText(){
+        return labelText.getText();
+    }
 
 }

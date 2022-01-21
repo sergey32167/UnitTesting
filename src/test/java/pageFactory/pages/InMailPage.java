@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pageFactory.baseEntities.BasePages;
 
-public class InMailPageFactory extends BasePages {
+public class InMailPage extends BasePages {
 
     @FindBy(css = ".personal-info-login__text")
     private WebElement loginLogo;
@@ -14,7 +14,7 @@ public class InMailPageFactory extends BasePages {
     @FindBy(xpath = "//ul[@class = 'menu__group']//span[text() = 'Log out']")
     private WebElement logOut;
 
-    public InMailPageFactory( boolean openPageByURL) {
+    public InMailPage(boolean openPageByURL) {
         super(openPageByURL);
     }
 
@@ -32,13 +32,17 @@ public class InMailPageFactory extends BasePages {
         }
     }
 
-    public InMailPageFactory menuButton() {
-        menuButton.click();
-        return this;
+    public LoginPage logOut(){
+        openMenu();
+        logOutClick();
+        return new LoginPage(false);
     }
 
-    public InMailPageFactory logOut() {
+    public void openMenu() {
+        menuButton.click();
+    }
+
+    public void logOutClick() {
         logOut.click();
-        return this;
     }
 }
