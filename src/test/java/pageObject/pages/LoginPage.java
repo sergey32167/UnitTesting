@@ -4,16 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageObject.BaseEntities.BasePages;
+import pageObject.BaseEntities.BasePage;
 
-public class LoginPageFactory extends BasePages {
+public class LoginPage extends BasePage {
 
     private final static By loginInput = By.id("passp-field-login");
     private final static By passwordInput = By.id("passp-field-passwd");
     private final static By loginButton = By.id("passp:sign-in");
     private final static By yandexLogo = By.xpath("//div[@class = 'Header-yaLogoBlock']");
+    private final static By labelText = By.tagName("label");
 
-    public LoginPageFactory(boolean openPageByURL) {
+    public LoginPage(boolean openPageByURL) {
         super(openPageByURL);
     }
 
@@ -47,19 +48,32 @@ public class LoginPageFactory extends BasePages {
         return driver.findElement(yandexLogo);
     }
 
-    public LoginPageFactory setEmail(String text) {
+    private WebElement getLabelText() {
+        return driver.findElement(labelText);
+    }
+
+    public InMailPage singIn(String name,String psw){
+        setEmail(name);
+        loginButton();
+        setPassword(psw);
+        loginButton();
+        return new InMailPage(false);
+    }
+
+    public void setEmail(String text) {
         getLoginInput().sendKeys(text);
-        return this;
     }
 
-    public LoginPageFactory setPassword(String text) {
+    public void setPassword(String text) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput)).sendKeys(text);
-        return this;
     }
 
-    public LoginPageFactory loginButton() {
+    public void loginButton() {
         getLoginButton().click();
-        return this;
+    }
+
+    public String getText(){
+       return getLabelText().getText();
     }
 
 }

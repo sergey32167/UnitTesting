@@ -1,12 +1,13 @@
 package pageObject.BaseEntities;
 
+import core.ReadProperties;
 import core.WebDriverSingleton;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public abstract class BasePages {
+public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
@@ -14,9 +15,9 @@ public abstract class BasePages {
 
     protected abstract boolean isPageOpened();
 
-    public BasePages(boolean openPageByURL) {
+    public BasePage(boolean openPageByURL) {
         this.driver = WebDriverSingleton.getDriverInstance();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(ReadProperties.getInstance().getTimeOut()));
 
         if (openPageByURL) {
             openPage();
@@ -28,11 +29,11 @@ public abstract class BasePages {
         int count = 0;
         boolean isPageOpenedIndicator = isPageOpened();
 
-        while (!isPageOpenedIndicator && count < 10) {
+        while (!isPageOpenedIndicator && count < ReadProperties.getInstance().getTimeOut()) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
             count++;
             isPageOpenedIndicator = isPageOpened();

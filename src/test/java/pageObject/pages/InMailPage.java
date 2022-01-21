@@ -3,15 +3,15 @@ package pageObject.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import pageObject.BaseEntities.BasePages;
+import pageObject.BaseEntities.BasePage;
 
-public class InMailPageFactory extends BasePages {
+public class InMailPage extends BasePage {
 
     private final static By loginLogo = By.cssSelector(".personal-info-login__text");
     private final static By menuButton = By.xpath("//a/div//img");
-    private final static By logOut = By.xpath("//ul[@class = 'menu__group']//span[text() = 'Log out']");
+    private final static By logOut = By.xpath("//a[@class = 'menu__item menu__item_type_link legouser__menu-item legouser__menu-item_action_exit']/span");
 
-    public InMailPageFactory( boolean openPageByURL) {
+    public InMailPage(boolean openPageByURL) {
         super(openPageByURL);
     }
 
@@ -39,13 +39,17 @@ public class InMailPageFactory extends BasePages {
         return driver.findElement(logOut);
     }
 
-    public InMailPageFactory menuButton() {
-        getMenuButton().click();
-        return this;
+    public LoginPage logOut(){
+        openMenu();
+        logOutClick();
+        return new LoginPage(false);
     }
 
-    public InMailPageFactory logOut() {
+    public void openMenu() {
+        getMenuButton().click();
+    }
+
+    public void logOutClick() {
         getLogOut().click();
-        return this;
     }
 }
