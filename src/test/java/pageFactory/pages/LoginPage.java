@@ -1,10 +1,18 @@
 package pageFactory.pages;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageFactory.baseEntities.BasePages;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LoginPage extends BasePages {
 
@@ -39,6 +47,7 @@ public class LoginPage extends BasePages {
 
     public InMailPage singIn(String name, String psw){
         setEmail(name);
+        screenshot();
         loginButton();
         setPassword(psw);
         loginButton();
@@ -59,6 +68,19 @@ public class LoginPage extends BasePages {
 
     public String getText(){
         return labelText.getText();
+    }
+
+    public void screenshot(){
+        File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        Date dateNow = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("d MMM yyyy hh-mm-ss");
+        String fileName = format.format(dateNow) + ".png";
+
+        try {
+            FileUtils.copyFile(screenshot, new File("D://Screenshots//" + fileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

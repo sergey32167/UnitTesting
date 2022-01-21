@@ -4,7 +4,6 @@ import core.ReadProperties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pageFactory.baseEntities.BaseTest;
-import pageFactory.pages.InMailPage;
 import pageFactory.pages.LoginPage;
 
 public class LoginTest extends BaseTest {
