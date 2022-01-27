@@ -4,9 +4,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageFactory.baseEntities.BasePages;
+import pageFactory.baseEntities.BasePage;
 
-public class LoginPage extends BasePages {
+public class LoginPage extends BasePage {
 
     @FindBy(id = "passp-field-login")
     private WebElement loginInput;

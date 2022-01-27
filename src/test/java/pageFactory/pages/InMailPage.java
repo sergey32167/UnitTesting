@@ -3,15 +3,15 @@ package pageFactory.pages;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pageFactory.baseEntities.BasePages;
+import pageFactory.baseEntities.BasePage;
 
-public class InMailPage extends BasePages {
+public class InMailPage extends BasePage {
 
     @FindBy(css = ".personal-info-login__text")
     private WebElement loginLogo;
     @FindBy(xpath = "//a/div//img")
     private WebElement menuButton;
-    @FindBy(xpath = "//ul[@class = 'menu__group']//span[text() = 'Log out']")
+    @FindBy(xpath = "//a[@class = 'menu__item menu__item_type_link legouser__menu-item legouser__menu-item_action_exit']//span")
     private WebElement logOut;
 
     public InMailPage(boolean openPageByURL) {

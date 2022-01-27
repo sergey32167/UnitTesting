@@ -2,38 +2,38 @@ package pageFactory.baseEntities;
 
 import core.ReadProperties;
 import core.WebDriverSingleton;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 
-public abstract class BasePages {
+public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
+    private static final String DATEFORMAT = "d MMM yyyy hh-mm-ss";
 
     protected abstract void openPage();
 
     protected abstract boolean isPageOpened();
 
-    public BasePages( boolean openPageByURL) {
+    public BasePage(boolean openPageByURL) {
         this.driver = WebDriverSingleton.getDriverInstance();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(ReadProperties.getInstance().getTimeOut()));
 
         PageFactory.initElements(this.driver, this);
 
-        if (openPageByURL){
+        if (openPageByURL) {
             openPage();
         }
         waitForOpen();
     }
+
     protected void waitForOpen() {
         int count = 0;
         boolean isPageOpenedIndicator = isPageOpened();
@@ -51,14 +51,22 @@ public abstract class BasePages {
             throw new RuntimeException("Page was not opened");
         }
     }
-    public void screenshot(){
-        File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+    public void screenshot() {
+        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         Date dateNow = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("d MMM yyyy hh-mm-ss");
+        SimpleDateFormat format = new SimpleDateFormat(DATEFORMAT);
         String fileName = format.format(dateNow) + ".png";
 
+        FileOutputStream file;
         try {
-            FileUtils.copyFile(screenshot, new File("D://Screenshots//" + fileName));
+            file = new FileOutputStream("D://Screenshots//" + fileName);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            file.write(screenshot);
+            file.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
