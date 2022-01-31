@@ -16,7 +16,7 @@ import java.util.Date;
 public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    private final SimpleDateFormat format;
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("d MMM yyyy hh-mm-ss");
 
     protected abstract void openPage();
 
@@ -25,7 +25,6 @@ public abstract class BasePage {
     public BasePage(boolean openPageByURL) {
         this.driver = WebDriverSingleton.getDriverInstance();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(ReadProperties.getInstance().getTimeOut()));
-        this.format = new SimpleDateFormat("d MMM yyyy hh-mm-ss");
 
         PageFactory.initElements(this.driver, this);
 
@@ -56,9 +55,9 @@ public abstract class BasePage {
     public void screenshot() {
         byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         Date dateNow = new Date();
-        String fileName = format.format(dateNow) + ".png";
+        String fileName = DATE_FORMAT.format(dateNow) + ".png";
 
-        try(FileOutputStream file = new FileOutputStream("./screenshots" + " " + fileName)){
+        try(FileOutputStream file = new FileOutputStream("./target/screenshots" + " " + fileName)){
             file.write(screenshot);
         } catch (FileNotFoundException ex) {
             throw new RuntimeException("File does not exist or is not available", ex);
