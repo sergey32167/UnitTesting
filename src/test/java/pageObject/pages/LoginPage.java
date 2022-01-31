@@ -1,5 +1,6 @@
 package pageObject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -52,6 +53,7 @@ public class LoginPage extends BasePage {
         return driver.findElement(labelText);
     }
 
+    @Step("sing in mail")
     public InMailPage singIn(String name,String psw){
         setEmail(name);
         loginButton();

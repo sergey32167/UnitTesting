@@ -1,5 +1,6 @@
 package pageObject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -39,6 +40,7 @@ public class InMailPage extends BasePage {
         return driver.findElement(logOut);
     }
 
+    @Step("sing out mail")
     public LoginPage logOut(){
         openMenu();
         logOutClick();
