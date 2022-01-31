@@ -33,7 +33,7 @@ public class Task40 {
     }
 
     @ParameterizedTest
-    @CsvSource({"siarheikost , 1qaz2wsx!QAZ@WSX", "seregeikss, zaq1xsw2ZAQ!XSW@"})
+    @CsvSource({"siarheikost , 3edcvfr4#EDCVFR$", "seregeikss, zaq1xsw2ZAQ!XSW@"})
     void login(String name, String psw) {
         driver.get("https://passport.yandex.com/auth/");
 

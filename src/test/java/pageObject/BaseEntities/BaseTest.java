@@ -7,7 +7,7 @@ public abstract class BaseTest {
 
     @AfterEach
     void finish() {
-        WebDriverSingleton.getDriverInstance().quit();
+        WebDriverSingleton.quit();
     }
 
 }
